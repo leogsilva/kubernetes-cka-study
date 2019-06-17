@@ -14,11 +14,14 @@
 # Make will use bash instead of sh
 SHELL := /usr/bin/env bash
 
+MODULES	:= helloworld
+
 .PHONY: help
 help:
 	@echo 'Usage'
 	@echo '	make terraform 	Run terraform and create cluster'
 	@echo '	make bucket 	Create bucket for terraform state'
+	@echo '	make deploy 	Deploy a module. List of supported modules: $(MODULES)' 
 
 #all
 .PHONY: all
@@ -36,3 +39,7 @@ bucket:
 .PHONY: teardown
 teardown:
 	@source scripts/teardown.sh
+
+.PHONY: deploy
+deploy:
+	@source scripts/create.sh $(MODULE)
