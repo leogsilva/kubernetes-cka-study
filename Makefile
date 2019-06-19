@@ -14,7 +14,7 @@
 # Make will use bash instead of sh
 SHELL := /usr/bin/env bash
 
-MODULES	:= helloworld
+MODULES	:= helloworld pods-and-services
 
 .PHONY: help
 help:

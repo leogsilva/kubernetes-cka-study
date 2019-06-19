@@ -151,7 +151,11 @@ k8s_defaults(
     namespace = "default"
 )
 
-
+k8s_defaults(
+    name = "k8s_pod",
+    kind = "pod",
+    namespace = "default"
+)
 
 # Set up some default attributes when the K8s rule "k8s_object" is called later
 # This only applies to "k8s_object" called with kind = "service"
