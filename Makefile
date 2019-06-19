@@ -14,7 +14,7 @@
 # Make will use bash instead of sh
 SHELL := /usr/bin/env bash
 
-MODULES	:= helloworld pods-and-services
+MODULES	:= helloworld pods-and-services multi-container deployment
 
 .PHONY: help
 help:
@@ -22,7 +22,7 @@ help:
 	@echo '	make terraform 	Run terraform and create cluster'
 	@echo '	make bucket 	Create bucket for terraform state'
 	@echo '	make deploy 	Deploy a module. List of supported modules: $(MODULES)' 
-
+	@echo ' make destroy    Destroy a module. List of supported modules: $(MODULES)'
 #all
 .PHONY: all
 all: terraform
@@ -43,3 +43,8 @@ teardown:
 .PHONY: deploy
 deploy:
 	@source scripts/create.sh $(MODULE)
+
+
+.PHONY: destroy
+destroy:
+	@source scripts/destroy.sh $(MODULE)

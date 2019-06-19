@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis
+  labels:
+    tier: data
+    app: multi-container
+  namespace: multi-container 
+spec:
+  containers:
+    - name: redis
+      image: "redis:latest"
+      imagePullPolicy: "Always"
+      ports:
+        - containerPort: 6379
+          protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+  labels:
+    tier: data
+    app: multi-container
+  namespace: multi-container 
+spec:
+  selector:
+    tier: data
+    app: multi-container
+  ports:
+    - port: 6379
+      targetPort: 6379
+  type: ClusterIP      
