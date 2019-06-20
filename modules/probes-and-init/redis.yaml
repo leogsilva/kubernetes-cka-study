@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: deploy
+    tier: data
+  namespace: deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: deploy
+      tier: data
+  template:
+    metadata:
+      name: redis
+      labels:
+        app: deploy
+        tier: data
+    spec:  
+      initContainers:
+        - name: init
+          image: "busybox:latest"
+          command: ['sh', '-c', 'echo The app is running! && sleep 60']
+      containers:
+        - name: redis
+          image: "redis:latest"
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+          livenessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 5
+          readinessProbe:
+            exec:
+              command:
+                - redis-cli
+                - ping
+            initialDelaySeconds: 15

@@ -34,6 +34,13 @@ k8s_object(
     cluster = "$(CLUSTER)"
 )
 
+k8s_object(
+    name = "pv",
+    kind = "pod",
+    template = "persistentvolume.yaml",
+    cluster = "$(CLUSTER)"
+)
+
 # k8s_object(
 #     name = "server",
 #     kind = "pod",
@@ -45,6 +52,7 @@ k8s_objects(
    name = "dev",
    objects = [
       ":ns",
+      ":pv",
       ":redis"
    ]
 )
